@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage> {
   //   CartView("Assets/peugeot-208.jpg", "Peugeot", "208", "", 5)
   //   //1
   // ];
+  int _botomindex = 0;
 
   List<prod> products = [];
   @override
@@ -52,7 +53,7 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     http
-        .get(Uri.parse("http://192.168.0.4:9090/product"))
+        .get(Uri.parse("http://172.21.138.97:9090/product"))
         .then((http.Response response) {
       List<dynamic> listofProds = json.decode(response.body);
       for (int i = 0; i < listofProds.length; i++) {
@@ -61,7 +62,7 @@ class _HomePageState extends State<HomePage> {
             prodlist["label"],
             prodlist["description"],
             prodlist["price"],
-            "http://192.168.0.4:9090/img/" + prodlist["image"]));
+            "http:/172.21.138.97:9090/img/" + prodlist["image"]));
       }
       setState(() {});
     });
@@ -97,6 +98,22 @@ class _HomePageState extends State<HomePage> {
               Tab(
                 text: "Favo",
                 icon: Icon(Icons.edit),
+              )
+            ],
+          ),
+        ),
+        drawer: Drawer(
+          child: Column(
+            children: [
+              AppBar(
+                automaticallyImplyLeading: false,
+                title: Text("chose option"),
+              ),
+              ListTile(
+                title: Text("back to top"),
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, "/");
+                },
               )
             ],
           ),
@@ -137,20 +154,16 @@ class CartView extends StatelessWidget {
         print("object");
       },
       child: Card(
-        child: Row(
+        child: Column(
           children: [
+            Text(_prodLabel),
             Image.network(
               _imageUrl,
-              height: 100,
-              width: 100,
+              height: 200,
+              width: 200,
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text(_prodLabel), Text(_prodDescription)],
-              ),
-            )
+            Text(_prodPrice + "DT"),
+            Text(_prodDescription),
           ],
         ),
       ),

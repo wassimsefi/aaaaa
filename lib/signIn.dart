@@ -21,7 +21,7 @@ class _LoginDemoState extends State<LoginDemo> {
   User _user;
 
   Future<User> loginUser(String email, String password) async {
-    final String apiUrl = "http://192.168.0.4:9090/user/signin";
+    final String apiUrl = "http://172.21.138.97:9090/user/signin";
     final Response = await http
         .post(apiUrl, body: {"username": email, "password": password});
 

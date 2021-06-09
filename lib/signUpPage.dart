@@ -115,7 +115,7 @@ class _SignUpState extends State<SignUp> {
                         http
                             .post(
                                 Uri.parse(
-                                    "http://192.168.0.4:9090/user/signup"),
+                                    "http://172.21.138.97:9090/user/signup"),
                                 headers: headers,
                                 body: json.encode(cardata))
                             .then((http.Response reponse) {
